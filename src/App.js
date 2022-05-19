@@ -5,6 +5,7 @@ import InstagramLogin from 'react-instagram-login';
 import { Card, Image } from 'react-bootstrap';
 import './App.css';
 import DataFetching from './DataFetching';
+import axios from 'axios'
 
 // function App() {
 //   return (
@@ -74,9 +75,42 @@ function App() {
   const responseInstagram = (response) => {
     console.log(response);
   }
+  const PostData  = () => {
+    fetch('https://projectwebcnpm.herokuapp.com/Patient', {
+      mode: 'no-cors',
+      method: 'POST',
+      body: JSON.stringify({
+
+            "Patient_ID" : 22,
+        
+            "Name" : "Nam",
+        
+            "Image" : "gggd",
+        
+            "Phone" : 123554,
+        
+            "Email" : "4gggafd"
+        
+        }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        'Access-Control-Allow-Origin': 'http://localhost:3000'
+      }
+    }).then(function (response) { 
+      if (response.ok) {
+        return response.json();
+      }
+      return Promise.reject(response);
+    }).then(function (data) {
+      console.log(data);
+    }).catch(function (error) {
+      console.warn('Something went wrong.', error);
+    });
+  }
   return (
-    <div class="container">
-    <InstagramLogin
+    <div className="container">
+      <button type='button' onClick={PostData}>Click Me!</button>
+    {/* <InstagramLogin
       clientId="438581111328693"
       buttonText="Login with Instagram"
       redirect_uri='https://localhost:3000//oauth/authorize'
@@ -88,7 +122,7 @@ function App() {
       // scopes={['basic']}
       // onLoginSuccess={token => this.setState({ token })}
       // onLoginFailure={data => this.setState({ failure: data })}
-    />
+    /> */}
     {/* <FontAwesome
       name="instagram"
     /> */}
